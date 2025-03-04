@@ -1,5 +1,4 @@
-import pymysql
-pymysql.install_as_MySQLdb()
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,7 +44,7 @@ MIDDLEWARE = [
 ]
 
 
-ROOT_URLCONF = 'users.urls'
+ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
     {
@@ -63,7 +62,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'myfirstdjango.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
@@ -71,14 +70,15 @@ WSGI_APPLICATION = 'myfirstdjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydb',
-        'USER': 'root',  # Default user for XAMPP
-        'PASSWORD': '',  # Default is empty in XAMPP
-        'HOST': 'localhost',  # Use 'localhost' or '127.0.0.1'
-        'PORT': '3306',  # Default MySQL port
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',           # Database name
+        'USER': 'postgres',         # PostgreSQL user
+        'PASSWORD': 'miSi-jui', # PostgreSQL password
+        'HOST': 'localhost',      # Database host (keep localhost if running locally)
+        'PORT': '5432',           # PostgreSQL default port
     }
 }
+
 
 
 
@@ -129,6 +129,18 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Allow your frontend
 ]
 
+CORS_ALLOW_ALL_ORIGINS=True
+
 # Allow all origins (for development only)
 # CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'users.CustomUser'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",  # Change to IsAuthenticated in production
+    ],
+}

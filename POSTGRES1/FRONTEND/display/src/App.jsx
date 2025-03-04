@@ -19,7 +19,7 @@ const App = () => {
         e.preventDefault();
         
         try {
-            const response = await api.post("user/", formData);
+            const response = await api.post("register/", formData);
             console.log("User Registered:", response.data);
             alert("Registration Successful!");
         } catch (error) {
